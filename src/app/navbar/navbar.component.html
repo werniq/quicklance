@@ -1,0 +1,17 @@
+<nav class="navbar">
+  <div class="navbar-brand">MyApp</div>
+
+  <div *ngIf="isUserAuthenticated; else guestView" class="user-info">
+    <span class="user-id">User ID: {{ userId }}</span>
+    <span class="user-balance">Balance: ${{ userBalance | number:'1.2-2' }}</span>
+  </div>
+
+  <ng-template #guestView>
+    <div class="guest-message">
+      <span>Welcome, Guest!</span>
+    </div>
+  </ng-template>
+
+  <button class="auth-button" *ngIf="isUserAuthenticated" (click)="logout()">Logout</button>
+  <button class="auth-button" *ngIf="!isUserAuthenticated" (click)="login()">Login</button>
+</nav>
