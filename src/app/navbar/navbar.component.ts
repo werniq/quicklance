@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import axios from "axios";
+import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [],
+  imports: [NgIf],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })

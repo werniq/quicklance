@@ -3,7 +3,7 @@
 
   <div *ngIf="isUserAuthenticated; else guestView" class="user-info">
     <span class="user-id">User ID: {{ userId }}</span>
-    <span class="user-balance">Balance: ${{ userBalance | number:'1.2-2' }}</span>
+    <span class="user-balance">Balance: ${{ userBalance }}</span>
   </div>
 
   <ng-template #guestView>
