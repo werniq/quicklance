@@ -1,4 +1,11 @@
 
 <div class="home__page">
   <app-navbar></app-navbar>
+
+  <div *ngFor="let item of data" class="item">
+    <h2>{{ item.title }}</h2>
+    <p>{{ item.description }}</p>
+    <p><strong>Credits:</strong> {{ item.credits }}</p>
+    <p><strong>Created At:</strong> {{ item.created_at | date }}</p>
+  </div>
 </div>

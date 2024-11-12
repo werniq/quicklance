@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
@@ -9,8 +9,9 @@ import { NavbarComponent } from '../navbar/navbar.component';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+
 export class HomeComponent implements OnInit {
-  data: { id: number; title: string; description: string; credits: number; created_at: string }[] = [];
+  data: any = [];
 
   ngOnInit(): void {
     this.fetchTasks();
@@ -19,7 +20,7 @@ export class HomeComponent implements OnInit {
   fetchTasks() {
     axios.get("https://localhost:8080/tasks")
       .then((response) => {
-        this.data = response;
+          this.data = response.data;
       }, (error) => {
         console.error("Error fetching data: ", error)
       })
