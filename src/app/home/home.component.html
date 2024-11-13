@@ -1,11 +1,29 @@
-
 <div class="home__page">
   <app-navbar></app-navbar>
 
-  <div *ngFor="let item of data" class="item">
-    <h2>{{ item.title }}</h2>
-    <p>{{ item.description }}</p>
-    <p><strong>Credits:</strong> {{ item.credits }}</p>
-    <p><strong>Created At:</strong> {{ item.created_at | date }}</p>
+  <div class="container">
+    <header class="hero">
+      <h1>Welcome to Freelance Solutions</h1>
+      <p>Submit and browse solutions in real-time</p>
+    </header>
+
+    <div class="tasks__list">
+      <div *ngFor="let item of data" class="task__item card">
+        <div class="task__header">
+          <h2 class="task__title">{{ item.title }}</h2>
+        </div>
+        <div class="task__content">
+          <p class="task__description">{{ item.description }}</p>
+          <div class="task__details">
+            <p><strong>Credits:</strong> {{ item.credits }}</p>
+            <p><strong>Created At:</strong> {{ item.created_at }}</p>
+          </div>
+        </div>
+        <div class="task__buttons">
+          <button class="task__btn btn-primary">View Solution</button>
+          <button class="task__btn btn-secondary">Submit Solution</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
