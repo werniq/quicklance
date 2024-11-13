@@ -1,1 +1,17 @@
-<p>task-detailed works!</p>
+<div class="task-detailed-container">
+  <div class="task-card">
+    <h2 class="task-title">{{ data.title }}</h2>
+    <p class="task-description">{{ data.description }}</p>
+    <div class="task-info">
+      <div class="info-item">
+        <span class="info-label">Credits:</span>
+        <span class="info-value">{{ data.credits }}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Created At:</span>
+        <span class="info-value">{{ data.created_at }}</span>
+      </div>
+    </div>
+    <button class="back-button" routerLink="home">Back to Tasks</button>
+  </div>
+</div>
