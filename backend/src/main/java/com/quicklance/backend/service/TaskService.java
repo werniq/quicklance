@@ -1,6 +1,7 @@
 package com.quicklance.backend.service;
 
 import com.quicklance.backend.dto.Task;
+import com.quicklance.backend.exception.TaskDoesNotExist;
 import com.quicklance.backend.mapper.Mapper;
 import com.quicklance.backend.repository.TaskRepository;
 import org.springframework.stereotype.Service;
@@ -23,4 +24,11 @@ public class TaskService {
                 .toList();
     }
 
+    public Task getTaskById(Long taskId) {
+        return taskRepository.findById(taskId)
+                .stream()
+                .map(Mapper::mapTask)
+                .findFirst()
+                .orElseThrow(() -> new TaskDoesNotExist("Task with id " + taskId + " does not exist"));
+    }
 }

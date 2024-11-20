@@ -21,3 +21,8 @@ docker run --rm --name quicklance-db -e POSTGRES_USER=quicklance -e POSTGRES_PAS
 ```
 
 The application will connect to this database automatically using the configuration in `application.properties`
+After that, to run the backend, execute the following command:
+
+```shell
+mvn spring-boot:run
+```
