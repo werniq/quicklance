@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.quicklance.backend.mapper.Mapper.remapTask;
+
 @Service
 public class TaskService {
 
@@ -30,5 +32,9 @@ public class TaskService {
                 .map(Mapper::mapTask)
                 .findFirst()
                 .orElseThrow(() -> new TaskDoesNotExist("Task with id " + taskId + " does not exist"));
+    }
+
+    public void createNewTask(Task task) {
+        taskRepository.save(remapTask(task));
     }
 }

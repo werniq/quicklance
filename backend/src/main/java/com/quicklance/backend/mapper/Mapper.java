@@ -7,4 +7,8 @@ public class Mapper {
     public static Task mapTask(TaskEntity taskEntity) {
         return new Task(taskEntity.getTitle(), taskEntity.getDescription(), taskEntity.getCredits());
     }
+
+    public static TaskEntity remapTask(Task task) {
+        return new TaskEntity(task.title(), task.description(), task.credits());
+    }
 }
