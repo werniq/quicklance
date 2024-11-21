@@ -1,1 +1,18 @@
-<p>client-home works!</p>
+<div *ngIf="error" class="error">
+  {{ error }}
+</div>
+
+<div *ngIf="clientTasks.length > 0; else noTasks">
+  <ul>
+    <li *ngFor="let task of clientTasks">
+      <h3>{{ task.title }}</h3>
+      <p>{{ task.description }}</p>
+      <p><strong>Credits:</strong> {{ task.credits }}</p>
+      <p><strong>Created At:</strong> {{ task.created_at }}</p>
+    </li>
+  </ul>
+</div>
+
+<ng-template #noTasks>
+  <p>No tasks found.</p>
+</ng-template>

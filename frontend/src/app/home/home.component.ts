@@ -10,6 +10,7 @@ import { FreelancerHomeComponent } from '../freelancer-home/freelancer-home.comp
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
+
 export class HomeComponent {
   userType = localStorage.getItem('userType') || "freelancer";
 }
