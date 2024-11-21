@@ -1,1 +1,45 @@
-<p>task-creation-form works!</p>
+<div class="form-container">
+  <h2>User Registration</h2>
+
+  <form (ngSubmit)="createTask()">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input
+        type="text"
+        id="name"
+        [(ngModel)]="task.title"
+        name="name"
+        required />
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input
+        type="email"
+        id="email"
+        [(ngModel)]="task.description"
+        name="email"
+        required />
+    </div>
+
+    <div class="form-group">
+      <label for="credits">Password:</label>
+      <input
+        type="number"
+        id="credits"
+        [(ngModel)]="task.credits"
+        name="password"
+        required />
+    </div>
+
+    <button type="submit">Post task</button>
+  </form>
+
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+</div>

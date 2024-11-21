@@ -1,12 +1,44 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import axios from 'axios';
 
 @Component({
   selector: 'app-task-creation-form',
   standalone: true,
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './task-creation-form.component.html',
-  styleUrl: './task-creation-form.component.css'
+  styleUrls: ['./task-creation-form.component.css']
 })
 export class TaskCreationFormComponent {
+  private taskCreationEndpoint = 'http://localhost:8080/api/v1/task';
+  task = {
+    title: '',
+    description: '',
+    credits: 0
+  };
 
+  successMessage: string | null = null;
+  errorMessage: string | null = null;
+
+  createTask() {
+    this.successMessage = null;
+    this.errorMessage = null;
+
+    axios.post(this.taskCreationEndpoint, this.task)
+      .then(response => {
+        if (response.status === 200) {
+          this.successMessage = 'Task created successfully!';
+          this.task = { title: '', description: '', credits: 0 };
+        } else {
+          this.errorMessage = 'Unexpected response from the server: ' + response.data?.message;
+        }
+      })
+      .catch(error => {
+        if (error.response && error.response.data) {
+          this.errorMessage = error.response.data.message || 'An error occurred.';
+        } else {
+          this.errorMessage = 'Unable to connect to the server. Please try again later.';
+        }
+      });
+  }
 }
