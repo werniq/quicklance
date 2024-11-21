@@ -12,5 +12,5 @@ import { FreelancerHomeComponent } from '../freelancer-home/freelancer-home.comp
 })
 
 export class HomeComponent {
-  userType = localStorage.getItem('userType') || "client";
+  userType = localStorage.getItem('userType') || "freelancer";
 }
