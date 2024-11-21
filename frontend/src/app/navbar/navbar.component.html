@@ -10,5 +10,5 @@
   </div>
 
   <a class="auth-button" *ngIf="isUserAuthenticated" href="/register">Logout</a>
-  <a class="auth-button" *ngIf="!isUserAuthenticated" href="/logout">Login</a>
+  <a class="auth-button" *ngIf="!isUserAuthenticated" (click)="localStorage.removeItem('token')">Login</a>
 </nav>

@@ -58,4 +58,6 @@ export class NavbarComponent implements OnInit {
       this.menuItems = ['Browse Tasks', 'My Earnings', 'Profile'];
     }
   }
+
+  protected readonly localStorage = localStorage;
 }
