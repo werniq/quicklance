@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import axios from 'axios';
 
 @Component({
   selector: 'app-task-creation-form',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './task-creation-form.component.html',
   styleUrls: ['./task-creation-form.component.css']
 })
@@ -21,9 +22,6 @@ export class TaskCreationFormComponent {
   errorMessage: string | null = null;
 
   createTask() {
-    this.successMessage = null;
-    this.errorMessage = null;
-
     axios.post(this.taskCreationEndpoint, this.task)
       .then(response => {
         if (response.status === 200) {

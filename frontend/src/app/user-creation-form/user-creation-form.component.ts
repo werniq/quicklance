@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import axios from "axios";
 
 @Component({
   selector: 'app-user-creation-form',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './user-creation-form.component.html',
   styleUrls: ['./user-creation-form.component.css']
 })
