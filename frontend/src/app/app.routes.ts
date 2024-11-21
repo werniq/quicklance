@@ -1,6 +1,6 @@
 import {provideRouter, Routes} from '@angular/router';
 import {ApplicationConfig} from '@angular/core';
-import {HomeComponent} from './freelancer-home/home.component';
+import {FreelancerHomeComponent} from './freelancer-home/freelancer-home.component';
 import {CommonModule} from '@angular/common';
 import {TaskDetailedComponent} from './task-detailed/task-detailed.component';
 import {UserProfileComponent} from './user-profile/user-profile.component';
@@ -8,7 +8,7 @@ import {UserCreationFormComponent} from './user-creation-form/user-creation-form
 import {TaskCreationFormComponent} from './task-creation-form/task-creation-form.component';
 
 export const routes: Routes = [
-  { path: 'freelancer-home', component: HomeComponent},
+  { path: 'freelancer-home', component: FreelancerHomeComponent},
   { path: 'tasks', component: CommonModule},
   { path: 'tasks/:id', component: TaskDetailedComponent},
   { path: 'users/:id', component: UserProfileComponent},

@@ -8,11 +8,11 @@ import {NgForOf} from '@angular/common';
   selector: 'app-freelancer-home',
   standalone: true,
   imports: [NavbarComponent, NgForOf, RouterModule],
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  templateUrl: './freelancer-home.component.html',
+  styleUrls: ['./freelancer-home.component.css']
 })
 
-export class HomeComponent implements OnInit {
+export class FreelancerHomeComponent implements OnInit {
   data: any = [
     {
       id: 1,
