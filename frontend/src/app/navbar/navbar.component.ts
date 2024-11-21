@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import axios from "axios";
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
@@ -13,7 +14,7 @@ export class NavbarComponent implements OnInit {
   userId: number = 0;
   userBalance: number = 0;
   isUserAuthenticated: boolean = false;
-  menuItems: string[] = [];
+  menuItems: { label: string; route: string }[] = [];
 
   ngOnInit() {
     this.initializeUser();
@@ -53,9 +54,19 @@ export class NavbarComponent implements OnInit {
   setMenuItems() {
     const userType = localStorage.getItem('type') || 'freelancer';
     if (userType === 'client') {
-      this.menuItems = ['My Tasks', 'Freelancers', 'Profile'];
+      this.menuItems = [
+        { label: 'Home', route: '/home'},
+        { label: 'My Tasks', route: '/my-tasks' },
+        { label: 'Freelancers', route: '/freelancers' },
+        { label: 'Profile', route: '/profile' }
+      ];
     } else {
-      this.menuItems = ['Browse Tasks', 'My Earnings', 'Profile'];
+      this.menuItems = [
+        { label: 'Home', route: '/home'},
+        { label: 'Browse Tasks', route: '/tasks' },
+        { label: 'My Earnings', route: '/my-earnings' },
+        { label: 'Profile', route: '/user/' }
+      ];
     }
   }
 

@@ -5,7 +5,9 @@
     <span *ngIf="isUserAuthenticated">User ID: {{ userId }}</span>
     <span *ngIf="isUserAuthenticated">Balance: ${{ userBalance }}</span>
     <ul class="menu">
-      <li *ngFor="let item of menuItems">{{ item }}</li>
+      <li class="menu-link" *ngFor="let item of menuItems">
+        <a [routerLink]="item.route">{{ item.label }}</a>
+      </li>
     </ul>
   </div>
 
