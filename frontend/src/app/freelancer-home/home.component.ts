@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import {NgForOf} from '@angular/common';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-freelancer-home',
   standalone: true,
   imports: [NavbarComponent, NgForOf, RouterModule],
   templateUrl: './home.component.html',

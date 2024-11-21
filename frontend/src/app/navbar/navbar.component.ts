@@ -55,14 +55,14 @@ export class NavbarComponent implements OnInit {
     const userType = localStorage.getItem('type') || 'freelancer';
     if (userType === 'client') {
       this.menuItems = [
-        { label: 'Home', route: '/home'},
+        { label: 'Home', route: '/freelancer-home'},
         { label: 'My Tasks', route: '/my-tasks' },
         { label: 'Freelancers', route: '/freelancers' },
         { label: 'Profile', route: '/profile' }
       ];
     } else {
       this.menuItems = [
-        { label: 'Home', route: '/home'},
+        { label: 'Home', route: '/freelancer-home'},
         { label: 'Browse Tasks', route: '/tasks' },
         { label: 'My Earnings', route: '/my-earnings' },
         { label: 'Profile', route: '/user/' }

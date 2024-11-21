@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './freelancer-home/home.component';
 import { AppRoutingModule} from './app-routing.module';
 import {NavbarComponent} from './navbar/navbar.component';
 
