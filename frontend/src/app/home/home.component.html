@@ -1,1 +1,6 @@
-<p>home works!</p>
+<ng-container *ngIf="userType === 'client'; else freelancerTemplate">
+  <app-client-home></app-client-home>
+</ng-container>
+<ng-template #freelancerTemplate>
+  <app-freelancer-home></app-freelancer-home>
+</ng-template>
