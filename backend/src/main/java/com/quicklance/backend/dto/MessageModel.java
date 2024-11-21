@@ -1,4 +1,3 @@
 package com.quicklance.backend.dto;
 
-public record MessageModel(String message) {
-}
+public record MessageModel(String message) {}

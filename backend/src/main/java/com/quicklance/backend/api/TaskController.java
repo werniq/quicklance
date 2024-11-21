@@ -2,6 +2,7 @@ package com.quicklance.backend.api;
 
 import com.quicklance.backend.dto.MessageModel;
 import com.quicklance.backend.dto.Task;
+import com.quicklance.backend.dto.TaskRequest;
 import com.quicklance.backend.service.TaskService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,9 +39,9 @@ public class TaskController {
     }
 
     @PostMapping("/task")
-    public ResponseEntity<MessageModel> addTask(@RequestBody Task task) {
+    public ResponseEntity<MessageModel> addTask(@RequestBody TaskRequest taskRequest) {
         try {
-            taskService.createNewTask(task);
+            taskService.createNewTask(taskRequest);
             return ResponseEntity.ok(new MessageModel("Task was added"));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new MessageModel(e.getMessage()));
