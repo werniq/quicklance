@@ -52,7 +52,7 @@ export class NavbarComponent implements OnInit {
   }
 
   setMenuItems() {
-    const userType = localStorage.getItem('type') || 'freelancer';
+    const userType = localStorage.getItem('userType') || 'freelancer';
     if (userType === 'client') {
       this.menuItems = [
         { label: 'Home', route: '/freelancer-home'},

@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import axios from 'axios';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-client-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './client-home.component.html',
   styleUrls: ['./client-home.component.css']
 })
-export class ClientHomeComponent {
+export class ClientHomeComponent implements OnInit {
   clientTasks: any[] = [];
   error: string | null = null;
 
@@ -19,21 +19,26 @@ export class ClientHomeComponent {
     this.fetchClientTasks();
   }
 
-  async fetchClientTasks(): Promise<void> {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      this.error = 'No token found in localStorage';
-      return;
-    }
-
-    try {
-      const response = await axios.get('/api/v1/user/tasks', {
-        params: { token }
-      });
-      this.clientTasks = response.data;
-    } catch (err) {
-      this.error = 'Failed to fetch tasks';
-      console.error(err);
-    }
+  fetchClientTasks(): void {
+    this.clientTasks = [
+      {
+        id: 1,
+        title: 'Task 1',
+        description: 'Description for Task 1',
+        created_at: '2024-11-20T10:30:00'
+      },
+      {
+        id: 2,
+        title: 'Task 2',
+        description: 'Description for Task 2',
+        created_at: '2024-11-21T11:00:00'
+      },
+      {
+        id: 3,
+        title: 'Task 3',
+        description: 'Description for Task 3',
+        created_at: '2024-11-21T14:15:00'
+      }
+    ];
   }
 }
