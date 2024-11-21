@@ -1,17 +1,14 @@
 <nav class="navbar">
   <div class="navbar-brand">QuickLance</div>
 
-  <div *ngIf="isUserAuthenticated; else guestView" class="user-info">
-    <span class="user-id">User ID: {{ userId }}</span>
-    <span class="user-balance">Balance: ${{ userBalance }}</span>
+  <div class="user-info">
+    <span *ngIf="isUserAuthenticated">User ID: {{ userId }}</span>
+    <span *ngIf="isUserAuthenticated">Balance: ${{ userBalance }}</span>
+    <ul class="menu">
+      <li *ngFor="let item of menuItems">{{ item }}</li>
+    </ul>
   </div>
 
-  <ng-template #guestView>
-    <div class="guest-message">
-      <span>Welcome, Guest!</span>
-    </div>
-  </ng-template>
-
-  <button class="auth-button" *ngIf="isUserAuthenticated" (click)="logout()">Logout</button>
-  <button class="auth-button" *ngIf="!isUserAuthenticated" (click)="login()">Login</button>
+  <a class="auth-button" *ngIf="isUserAuthenticated" href="/register">Logout</a>
+  <a class="auth-button" *ngIf="!isUserAuthenticated" href="/logout">Login</a>
 </nav>

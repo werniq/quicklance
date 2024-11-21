@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import axios from "axios";
-import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [NgIf],
+  imports: [CommonModule],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
@@ -13,9 +13,11 @@ export class NavbarComponent implements OnInit {
   userId: number = 0;
   userBalance: number = 0;
   isUserAuthenticated: boolean = false;
+  menuItems: string[] = [];
 
   ngOnInit() {
     this.initializeUser();
+    this.setMenuItems();
   }
 
   checkUserAuthentication() {
@@ -45,6 +47,15 @@ export class NavbarComponent implements OnInit {
     this.checkUserAuthentication();
     if (this.isUserAuthenticated) {
       this.retrieveUserInfoById(this.userId);
+    }
+  }
+
+  setMenuItems() {
+    const userType = localStorage.getItem('type') || 'freelancer';
+    if (userType === 'client') {
+      this.menuItems = ['My Tasks', 'Freelancers', 'Profile'];
+    } else {
+      this.menuItems = ['Browse Tasks', 'My Earnings', 'Profile'];
     }
   }
 
