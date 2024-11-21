@@ -14,7 +14,8 @@ export class UserCreationFormComponent {
   public user = {
     name: '',
     email: '',
-    password: ''
+    password: '',
+    userType: 'client'
   };
   public responseMessage = "";
   public isRegistered = false;
@@ -33,6 +34,10 @@ export class UserCreationFormComponent {
 
   updatePassword(password: string) {
     this.user.password = password;
+  }
+
+  updateUserType(userType: string) {
+    this.user.userType = userType;
   }
 
   registerUser() {
@@ -54,7 +59,8 @@ export class UserCreationFormComponent {
     this.user = {
       name: '',
       email: '',
-      password: ''
+      password: '',
+      userType: 'client'
     };
     this.responseMessage = '';
     this.isRegistered = false;

@@ -32,6 +32,18 @@
         required />
     </div>
 
+    <div class="form-group">
+      <label for="userType">User Type:</label>
+      <select
+        id="userType"
+        [(ngModel)]="user.userType"
+        name="userType"
+        required>
+        <option value="client">Client</option>
+        <option value="freelancer">Freelancer</option>
+      </select>
+    </div>
+
     <button type="submit">Register</button>
     <button type="button" (click)="resetForm()">Reset</button>
   </form>
