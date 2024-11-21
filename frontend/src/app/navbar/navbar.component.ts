@@ -58,12 +58,4 @@ export class NavbarComponent implements OnInit {
       this.menuItems = ['Browse Tasks', 'My Earnings', 'Profile'];
     }
   }
-
-  login() {
-    // Logic for login
-  }
-
-  logout() {
-    // Logic for logout
-  }
 }
