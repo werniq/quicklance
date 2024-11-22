@@ -7,11 +7,11 @@ import {TaskDetailedComponent} from './task-detailed/task-detailed.component';
 
 
 const routes: Routes = [
-  { path: '/freelancer-home', component: FreelancerHomeComponent},
+  { path: '/home', component: FreelancerHomeComponent},
   { path: '/tasks', component: CommonModule},
   { path: '/tasks/:id', component: TaskDetailedComponent},
   { path: '/users/:id', component: UserProfileComponent},
-  { path: '', redirectTo: '/freelancer-home', pathMatch: 'full'}
+  { path: '', redirectTo: '/home', pathMatch: 'full'}
 ]
 
 @NgModule({
