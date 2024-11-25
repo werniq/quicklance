@@ -58,7 +58,8 @@ export class NavbarComponent implements OnInit {
         { label: 'Home', route: '/home'},
         { label: 'My Tasks', route: '/my-tasks' },
         { label: 'Freelancers', route: '/freelancers' },
-        { label: 'Profile', route: '/profile' }
+        { label: 'Profile', route: '/profile' },
+        { label: 'Create task', route: '/create-task' }
       ];
     } else {
       this.menuItems = [
