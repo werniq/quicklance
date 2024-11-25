@@ -15,7 +15,7 @@ export const routes: Routes = [
   { path: 'users/:id', component: UserProfileComponent},
   { path: 'register', component: UserCreationFormComponent},
   { path: 'create-task', component: TaskCreationFormComponent},
-  { path: '', redirectTo: 'freelancer-home', pathMatch: 'full'}
+  { path: '', redirectTo: 'home', pathMatch: 'full'}
 ];
 
 export const appConfig: ApplicationConfig = {
