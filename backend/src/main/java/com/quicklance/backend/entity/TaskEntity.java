@@ -4,6 +4,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "task")
 public class TaskEntity extends BaseEntity {
@@ -17,14 +19,18 @@ public class TaskEntity extends BaseEntity {
     @Column(name = "credits", nullable = false)
     private final Integer credits;
 
-    public TaskEntity(String title, String description, Integer credits) {
+    @Column(name = "createdAt", nullable = false)
+    private final LocalDate createdAt;
+
+    public TaskEntity(String title, String description, Integer credits, LocalDate createdAt) {
         this.title = title;
         this.description = description;
         this.credits = credits;
+        this.createdAt = createdAt;
     }
 
     public TaskEntity() {
-        this(null, null, null);
+        this(null, null, null, null);
     }
 
     public String getTitle() {
@@ -37,5 +43,9 @@ public class TaskEntity extends BaseEntity {
 
     public Integer getCredits() {
         return credits;
+    }
+
+    public LocalDate getCreatedAt() {
+        return createdAt;
     }
 }
