@@ -1,0 +1,23 @@
+<div *ngIf="error" class="error">
+  {{ error }}
+</div>
+
+<div *ngIf="clientTasks.length > 0; else noTasks">
+  <div class="tasks-container">
+    <div class="task-card" *ngFor="let task of clientTasks">
+      <a [routerLink]="'/task/' + task.id" class="task-link">
+        <h3>{{ task.title }}</h3>
+      </a>
+      <p>{{ task.description }}</p>
+      <p><strong>Credits:</strong> {{ task.credits }}</p>
+      <p><strong>Created At:</strong> {{ task.created_at }}</p>
+      <a class="view-submissions-btn" href="/tasks/{{task.id}}">View Submissions</a>
+    </div>
+  </div>
+</div>
+
+<div class="tasks-container">
+  <ng-template #noTasks>
+    <p>You have not created any tasks.</p>
+  </ng-template>
+</div>
