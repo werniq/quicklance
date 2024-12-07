@@ -1,1 +1,58 @@
-<p>user-creation-form works!</p>
+<div class="form-container">
+  <h2>User Registration</h2>
+
+  <form (ngSubmit)="registerUser()">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input
+        type="text"
+        id="name"
+        [(ngModel)]="user.name"
+        name="name"
+        required />
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input
+        type="email"
+        id="email"
+        [(ngModel)]="user.email"
+        name="email"
+        required />
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input
+        type="password"
+        id="password"
+        [(ngModel)]="user.password"
+        name="password"
+        required />
+    </div>
+
+    <div class="form-group">
+      <label for="userType">User Type:</label>
+      <select
+        id="userType"
+        [(ngModel)]="user.userType"
+        name="userType"
+        required>
+        <option value="client">Client</option>
+        <option value="freelancer">Freelancer</option>
+      </select>
+    </div>
+
+    <button type="submit">Register</button>
+    <button type="button" (click)="resetForm()">Reset</button>
+  </form>
+
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+</div>
