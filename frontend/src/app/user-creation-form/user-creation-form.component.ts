@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import axios from "axios";
 
 @Component({
   selector: 'app-user-creation-form',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './user-creation-form.component.html',
   styleUrls: ['./user-creation-form.component.css']
 })
@@ -43,15 +44,19 @@ export class UserCreationFormComponent {
   registerUser() {
     axios.post(this.userCreationEndpoint, this.user)
       .then(response => {
-        this.isRegistered = response.status === 200;
-        this.successMessage = "Registration successful!";
-        this.responseMessage = response.data.message || 'User registered successfully!';
-        this.errorMessage = '';
+      if (response.status === 200) {
+        this.successMessage = 'Task created successfully!';
+        this.resetForm();
+      } else {
+        this.errorMessage = 'Unexpected response from the server: ' + response.data?.message;
+      }
       })
       .catch(error => {
-        this.isRegistered = false;
-        this.successMessage = '';
-        this.errorMessage = error.response?.data?.message || 'Registration failed. Please try again.';
+        if (error.response && error.response.data) {
+          this.errorMessage = error.response.data.message || 'An error occurred.';
+        } else {
+          this.errorMessage = 'Unable to connect to the server. Please try again later.';
+        }
       });
   }
 
