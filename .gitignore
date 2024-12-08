@@ -29,7 +29,7 @@ build/
 !**/src/test/**/build/
 
 .vscode/
-
+backend/src/main/resources/.env
 
 node_modules/
 .angular
