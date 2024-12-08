@@ -2,9 +2,7 @@ package com.quicklance.backend.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.AeadAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,14 +32,27 @@ public class JwtService {
                 .builder()
                 .claims(extraClaims)
                 .subject(userDetails.getUsername())
-                .issuedAt(new Date(System.currentTimeMillis()))
+                .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
                 .signWith(getSecretKey())
                 .compact();
     }
 
+    public boolean isTokenValid(String jwtToken, UserDetails userDetails) {
+        String email = extractUsername(jwtToken);
+        return (email.equals(userDetails.getUsername()) && !isExpired(jwtToken));
+    }
+
+    private boolean isExpired(String jwtToken) {
+        return extractExpirationDate(jwtToken).before(new Date());
+    }
+
     public String extractUsername(String jwtToken) {
         return extractClaim(jwtToken, Claims::getSubject);
+    }
+
+    public Date extractExpirationDate(String jwtToken) {
+        return extractClaim(jwtToken, Claims::getExpiration);
     }
 
     private <T> T extractClaim(String jwtToken, Function<Claims, T> claimsResolver) {
