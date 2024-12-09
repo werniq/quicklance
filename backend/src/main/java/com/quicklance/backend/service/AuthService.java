@@ -46,7 +46,11 @@ public class AuthService {
         UserEntity user = userRepository.findByEmail(request.email())
                 .orElseThrow(() -> new UsernameNotFoundException("User was not found"));
         String jwtToken = jwtService.generateJwtToken(
-                Map.of("type", user.getAuthorities().stream().findFirst()), user);
+                Map.of("type", user.getAuthorities()
+                        .stream()
+                        .findFirst()
+                        .orElseThrow(() -> new IllegalArgumentException("Type was not decoded"))),
+                user);
         return new AuthResponse(jwtToken);
     }
 }

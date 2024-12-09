@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class UserEntity extends BaseEntity implements UserDetails {
 
     @Column(name = "firstname", nullable = false)
@@ -24,6 +24,7 @@ public class UserEntity extends BaseEntity implements UserDetails {
     @Column(name = "password", nullable = false)
     private final String password;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = false)
     private final UserType type;
 
