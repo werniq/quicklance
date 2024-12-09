@@ -12,6 +12,12 @@ import java.util.List;
 @Table(name = "user")
 public class UserEntity extends BaseEntity implements UserDetails {
 
+    @Column(name = "firstname", nullable = false)
+    private final String firstname;
+
+    @Column(name = "lastname", nullable = false)
+    private final String lastname;
+
     @Column(name = "email", nullable = false)
     private final String email;
 
@@ -21,19 +27,29 @@ public class UserEntity extends BaseEntity implements UserDetails {
     @Column(name = "type", nullable = false)
     private final UserType type;
 
-    public UserEntity(String email, String password, UserType type) {
+    public UserEntity(String firstname, String lastname, String email, String password, UserType type) {
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.email = email;
         this.password = password;
         this.type = type;
     }
 
     public UserEntity() {
-        this(null, null, null);
+        this(null, null, null, null, null);
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(type.name()));
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
     }
 
     @Override

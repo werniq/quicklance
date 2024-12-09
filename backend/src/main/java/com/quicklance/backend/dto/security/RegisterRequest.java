@@ -1,3 +1,5 @@
 package com.quicklance.backend.dto.security;
 
-public record RegisterRequest (String firstName, String lastName, String email, String password) {}
+import com.quicklance.backend.entity.UserType;
+
+public record RegisterRequest (String firstname, String lastname, String email, String password, UserType userType) {}
