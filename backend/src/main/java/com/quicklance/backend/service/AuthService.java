@@ -1,12 +1,15 @@
 package com.quicklance.backend.service;
 
-import com.quicklance.backend.dto.security.AuthResponse;
 import com.quicklance.backend.dto.security.LoginRequest;
+import com.quicklance.backend.dto.security.LoginResponse;
 import com.quicklance.backend.dto.security.RegisterRequest;
+import com.quicklance.backend.dto.security.RegisterResponse;
 import com.quicklance.backend.entity.UserEntity;
+import com.quicklance.backend.entity.UserType;
 import com.quicklance.backend.repository.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,7 +31,7 @@ public class AuthService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public AuthResponse register(RegisterRequest request) {
+    public RegisterResponse register(RegisterRequest request) {
         UserEntity user = new UserEntity(
                 request.firstname(),
                 request.lastname(),
@@ -37,20 +40,21 @@ public class AuthService {
                 request.userType());
         userRepository.save(user);
         String jwtToken = jwtService.generateJwtToken(Map.of("type", request.userType().name()), user);
-        return new AuthResponse(jwtToken);
+        return new RegisterResponse(jwtToken);
     }
 
-    public AuthResponse login(LoginRequest request) {
+    public LoginResponse login(LoginRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.email(), request.password()));
         UserEntity user = userRepository.findByEmail(request.email())
                 .orElseThrow(() -> new UsernameNotFoundException("User was not found"));
+        GrantedAuthority userType = user.getAuthorities()
+                .stream()
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Type was not decoded"));
         String jwtToken = jwtService.generateJwtToken(
-                Map.of("type", user.getAuthorities()
-                        .stream()
-                        .findFirst()
-                        .orElseThrow(() -> new IllegalArgumentException("Type was not decoded"))),
+                Map.of("type", userType),
                 user);
-        return new AuthResponse(jwtToken);
+        return new LoginResponse(jwtToken, user.getUsername(), UserType.valueOf(userType.toString()));
     }
 }

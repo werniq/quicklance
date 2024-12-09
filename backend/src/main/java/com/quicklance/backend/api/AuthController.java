@@ -1,8 +1,9 @@
 package com.quicklance.backend.api;
 
-import com.quicklance.backend.dto.security.AuthResponse;
 import com.quicklance.backend.dto.security.LoginRequest;
+import com.quicklance.backend.dto.security.LoginResponse;
 import com.quicklance.backend.dto.security.RegisterRequest;
+import com.quicklance.backend.dto.security.RegisterResponse;
 import com.quicklance.backend.service.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,12 +22,12 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest registerRequest) {
+    public ResponseEntity<RegisterResponse> register(@RequestBody RegisterRequest registerRequest) {
         return ResponseEntity.ok(authService.register(registerRequest));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
         return ResponseEntity.ok(authService.login(loginRequest));
     }
 }
