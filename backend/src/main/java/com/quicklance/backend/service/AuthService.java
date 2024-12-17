@@ -55,6 +55,6 @@ public class AuthService {
         String jwtToken = jwtService.generateJwtToken(
                 Map.of("type", userType),
                 user);
-        return new LoginResponse(jwtToken, user.getUsername(), UserType.valueOf(userType.toString()));
+        return new LoginResponse(jwtToken, user.getUsername(), UserType.valueOf(userType.toString().replace("ROLE_", "")));
     }
 }
