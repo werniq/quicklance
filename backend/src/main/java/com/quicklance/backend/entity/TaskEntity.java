@@ -7,7 +7,7 @@ import jakarta.persistence.Table;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "task")
+@Table(name = "tasks")
 public class TaskEntity extends BaseEntity {
 
     @Column(name = "title", nullable = false)
