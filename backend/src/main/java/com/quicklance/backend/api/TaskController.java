@@ -35,11 +35,21 @@ public class TaskController {
         }
     }
 
+    @GetMapping("/user/{userId}/tasks")
+    public ResponseEntity<List<Task>> getAllUserTasks(@PathVariable Long userId) {
+        try {
+            return ResponseEntity.ok(taskService.getUserTasks(userId));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).build();
+        }
+    }
+
     @GetMapping("/tasks/{taskId}")
     public ResponseEntity<Task> getTaskById(@PathVariable Long taskId) {
         return ResponseEntity.ok(taskService.getTaskById(taskId));
     }
 
+    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
     @PostMapping("/task")
     public ResponseEntity<MessageModel> addTask(@RequestBody TaskRequest taskRequest) {
         try {
