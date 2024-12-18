@@ -37,7 +37,8 @@ public class AuthService {
                 request.lastname(),
                 request.email(),
                 passwordEncoder.encode(request.password()),
-                request.userType());
+                request.userType(),
+                0L);
         userRepository.save(user);
         String jwtToken = jwtService.generateJwtToken(Map.of("type", request.userType().name()), user);
         return new RegisterResponse(jwtToken, user.getId());

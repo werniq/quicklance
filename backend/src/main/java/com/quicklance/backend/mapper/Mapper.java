@@ -20,6 +20,11 @@ public class Mapper {
     }
 
     public static User mapUser(UserEntity userEntity) {
-        return new User(userEntity.getId(), userEntity.getFirstname(), userEntity.getLastname(), userEntity.getType());
+        return new User(
+                userEntity.getId(),
+                userEntity.getFirstname(),
+                userEntity.getLastname(),
+                userEntity.getType(),
+                userEntity.getCredits());
     }
 }

@@ -28,16 +28,20 @@ public class UserEntity extends BaseEntity implements UserDetails {
     @Column(name = "type", nullable = false)
     private final UserType type;
 
-    public UserEntity(String firstname, String lastname, String email, String password, UserType type) {
+    @Column(name = "credits", nullable = false)
+    private final Long credits;
+
+    public UserEntity(String firstname, String lastname, String email, String password, UserType type, Long credits) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.password = password;
         this.type = type;
+        this.credits = credits;
     }
 
     public UserEntity() {
-        this(null, null, null, null, null);
+        this(null, null, null, null, null, null);
     }
 
     @Override
@@ -55,6 +59,10 @@ public class UserEntity extends BaseEntity implements UserDetails {
 
     public String getType() {
         return type.name();
+    }
+
+    public Long getCredits() {
+        return credits;
     }
 
     @Override
