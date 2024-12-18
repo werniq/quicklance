@@ -1,3 +1,3 @@
 package com.quicklance.backend.dto.security;
 
-public record RegisterResponse(String jwtToken) {}
+public record RegisterResponse(String jwtToken, Long userId) {}
