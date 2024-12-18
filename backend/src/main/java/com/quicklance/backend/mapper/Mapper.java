@@ -12,11 +12,8 @@ public class Mapper {
                 taskEntity.getTitle(),
                 taskEntity.getDescription(),
                 taskEntity.getCredits(),
+                mapUser(taskEntity.getAuthor()),
                 taskEntity.getCreatedAt());
-    }
-
-    public static TaskEntity remapTask(Task task) {
-        return new TaskEntity(task.title(), task.description(), task.credits(), task.createdAt());
     }
 
     public static User mapUser(UserEntity userEntity) {

@@ -2,14 +2,15 @@ package com.quicklance.backend.service;
 
 import com.quicklance.backend.dto.Task;
 import com.quicklance.backend.dto.TaskRequest;
+import com.quicklance.backend.entity.TaskEntity;
+import com.quicklance.backend.entity.UserEntity;
 import com.quicklance.backend.exception.TaskDoesNotExist;
 import com.quicklance.backend.mapper.Mapper;
 import com.quicklance.backend.repository.TaskRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
-import static com.quicklance.backend.mapper.Mapper.remapTask;
 
 @Service
 public class TaskService {
@@ -36,7 +37,8 @@ public class TaskService {
     }
 
     public void createNewTask(TaskRequest taskRequest) {
-        Task task = Task.from(taskRequest);
-        taskRepository.save(remapTask(task));
+        UserEntity userEntity = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        TaskEntity taskEntity = TaskEntity.from(taskRequest, userEntity);
+        taskRepository.save(taskEntity);
     }
 }

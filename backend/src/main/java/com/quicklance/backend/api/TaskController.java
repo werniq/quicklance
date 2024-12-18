@@ -40,6 +40,7 @@ public class TaskController {
         return ResponseEntity.ok(taskService.getTaskById(taskId));
     }
 
+    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
     @PostMapping("/task")
     public ResponseEntity<MessageModel> addTask(@RequestBody TaskRequest taskRequest) {
         try {
