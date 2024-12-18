@@ -5,7 +5,16 @@ import com.quicklance.backend.dto.User;
 import com.quicklance.backend.entity.TaskEntity;
 import com.quicklance.backend.entity.UserEntity;
 
+import java.util.List;
+
 public class Mapper {
+    public static List<Task> mapTasks(List<TaskEntity> taskEntities) {
+        return taskEntities
+                .stream()
+                .map(Mapper::mapTask)
+                .toList();
+    }
+
     public static Task mapTask(TaskEntity taskEntity) {
         return new Task(
                 taskEntity.getId(),
