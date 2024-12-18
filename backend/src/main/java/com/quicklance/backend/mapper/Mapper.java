@@ -7,7 +7,12 @@ import com.quicklance.backend.entity.UserEntity;
 
 public class Mapper {
     public static Task mapTask(TaskEntity taskEntity) {
-        return new Task(taskEntity.getTitle(), taskEntity.getDescription(), taskEntity.getCredits(), taskEntity.getCreatedAt());
+        return new Task(
+                taskEntity.getId(),
+                taskEntity.getTitle(),
+                taskEntity.getDescription(),
+                taskEntity.getCredits(),
+                taskEntity.getCreatedAt());
     }
 
     public static TaskEntity remapTask(Task task) {
