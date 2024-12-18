@@ -14,6 +14,11 @@ public class ExceptionsHandler {
         return handleBadRequestException(e);
     }
 
+    @ExceptionHandler(value = {UserDoesNotExist.class})
+    public ResponseEntity<Object> handleException(UserDoesNotExist e) {
+        return handleBadRequestException(e);
+    }
+
     private ResponseEntity<Object> handleBadRequestException(RuntimeException e) {
         HttpStatus badRequest = HttpStatus.BAD_REQUEST;
         ExceptionResponse wrongCategoryResponse = new ExceptionResponse(

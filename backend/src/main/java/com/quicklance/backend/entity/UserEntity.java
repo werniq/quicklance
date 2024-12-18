@@ -53,6 +53,10 @@ public class UserEntity extends BaseEntity implements UserDetails {
         return lastname;
     }
 
+    public String getType() {
+        return type.name();
+    }
+
     @Override
     public String getPassword() {
         return password;
