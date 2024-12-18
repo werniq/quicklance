@@ -40,7 +40,7 @@ public class AuthService {
                 request.userType());
         userRepository.save(user);
         String jwtToken = jwtService.generateJwtToken(Map.of("type", request.userType().name()), user);
-        return new RegisterResponse(jwtToken);
+        return new RegisterResponse(jwtToken, user.getId());
     }
 
     public LoginResponse login(LoginRequest request) {
@@ -55,6 +55,6 @@ public class AuthService {
         String jwtToken = jwtService.generateJwtToken(
                 Map.of("type", userType),
                 user);
-        return new LoginResponse(jwtToken, user.getUsername(), UserType.valueOf(user.getType()));
+        return new LoginResponse(jwtToken, user.getId(), user.getUsername(), UserType.valueOf(user.getType()));
     }
 }
