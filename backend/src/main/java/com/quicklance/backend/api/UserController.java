@@ -1,12 +1,11 @@
 package com.quicklance.backend.api;
 
+import com.quicklance.backend.dto.MessageModel;
 import com.quicklance.backend.dto.User;
+import com.quicklance.backend.dto.security.CreditsRequest;
 import com.quicklance.backend.service.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -27,4 +26,14 @@ public class UserController {
         }
     }
 
+    @PostMapping("/user/credits")
+    public ResponseEntity<MessageModel> updateUserCredits(@RequestBody CreditsRequest creditsRequest) {
+        try {
+            Long userId = creditsRequest.userId();
+            userService.updateUserCredits(userId, creditsRequest.credits());
+            return ResponseEntity.ok(new MessageModel("Credits for user " + userId + " were updated successfully"));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).build();
+        }
+    }
 }
