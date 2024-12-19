@@ -6,6 +6,7 @@ import com.quicklance.backend.exception.UserDoesNotExist;
 import com.quicklance.backend.mapper.Mapper;
 import com.quicklance.backend.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService {
@@ -20,5 +21,10 @@ public class UserService {
         UserEntity userEntity = userRepository.findById(userId)
                 .orElseThrow(() -> new UserDoesNotExist("User with id " + userId + " does not exist"));
         return Mapper.mapUser(userEntity);
+    }
+
+    @Transactional
+    public void updateUserCredits(Long userId, Long credits) {
+        userRepository.updateUserCreditsById(userId, credits);
     }
 }
