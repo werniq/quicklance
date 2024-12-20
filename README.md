@@ -12,6 +12,21 @@
 - Maven
 - Java 21
 
+### Running the Backend Using Docker
+1. Navigate to the backend folder
+    ```shell
+    cd backend
+    ```    
+2. Ensure environment variables are set in `docker-compose.yml`
+3. Build and run the containers
+    ```shell
+    docker-compose up --build
+    ```
+This command will:
+- Build the `quicklance-backend` image using the `Dockerfile` in the backend folder
+- Start the `quicklance-db` container (PostgreSQL) and the `quicklance-backend` container
+- The backend will be accessible at `http://localhost:8080`
+
 ### Setting up the Database
 
 The application requires a PostgreSQL database to be running. Start a PostgreSQL database using Docker by running the following command:

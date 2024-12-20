@@ -1,0 +1,32 @@
+services:
+  quicklance-db:
+    image: postgres
+    container_name: quicklance-db
+    environment:
+      POSTGRES_USER: quicklance
+      POSTGRES_PASSWORD: quicklance
+      POSTGRES_DB: quicklance
+    ports:
+      - "5432:5432"
+    networks:
+      - quicklance-network
+
+  quicklance-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: quicklance
+    container_name: quicklance-backend
+    environment:
+      DB_HOST: quicklance-db
+      JWT_SECRET: ${JWT_SECRET}
+    ports:
+      - "8080:8080"
+    depends_on:
+      - quicklance-db
+    networks:
+      - quicklance-network
+
+networks:
+  quicklance-network:
+    driver: bridge
