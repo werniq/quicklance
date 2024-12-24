@@ -11,44 +11,20 @@ import axios from "axios";
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  userId: number = 0;
+  userId: string = localStorage.getItem('userId') || '0';
   userBalance: number = 0;
   isUserAuthenticated: boolean = false;
   menuItems: { label: string; route: string }[] = [];
 
   ngOnInit() {
-    this.initializeUser();
+    this.isUserAuthenticated = localStorage.getItem('userToken') != '';
     this.setMenuItems();
   }
 
-  checkUserAuthentication() {
-    const token = localStorage.getItem('token');
-    axios.get(`https://localhost:8080/is-user-authenticated?token=${token}`)
-      .then(response => {
-        this.isUserAuthenticated = response.data.authenticated;
-      })
-      .catch(error => {
-        console.error("Authentication check failed", error);
-        this.isUserAuthenticated = false;
-      });
-  }
-
-  retrieveUserInfoById(userId: number) {
-    axios.post(`https://localhost:8080/get-user-info?userId=${userId}`)
-      .then(response => {
-        this.userId = response.data.id;
-        this.userBalance = response.data.balance;
-      })
-      .catch(error => {
-        console.error("Failed to retrieve user information", error);
-      });
-  }
-
-  initializeUser() {
-    this.checkUserAuthentication();
-    if (this.isUserAuthenticated) {
-      this.retrieveUserInfoById(this.userId);
-    }
+  logout() {
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userType');
+    localStorage.removeItem('userToken');
   }
 
   setMenuItems() {

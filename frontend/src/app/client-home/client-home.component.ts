@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import axios from 'axios';
 
 @Component({
   selector: 'app-client-home',
@@ -11,6 +12,7 @@ import { RouterModule } from '@angular/router';
 })
 export class ClientHomeComponent implements OnInit {
   clientTasks: any[] = [];
+  newsFetchingURL: string = `http://localhost:8080/api/v1/user/${localStorage.getItem('userId')}/tasks`
   error: string | null = null;
 
   constructor() {}
@@ -20,25 +22,12 @@ export class ClientHomeComponent implements OnInit {
   }
 
   fetchClientTasks(): void {
-    this.clientTasks = [
-      {
-        id: 1,
-        title: 'Task 1',
-        description: 'Description for Task 1',
-        created_at: '2024-11-20T10:30:00'
-      },
-      {
-        id: 2,
-        title: 'Task 2',
-        description: 'Description for Task 2',
-        created_at: '2024-11-21T11:00:00'
-      },
-      {
-        id: 3,
-        title: 'Task 3',
-        description: 'Description for Task 3',
-        created_at: '2024-11-21T14:15:00'
+    axios.get(this.newsFetchingURL, {
+      headers: {
+        "Authorization": "Bearer " + localStorage.getItem('userToken'),
       }
-    ];
+    }).then(res => {
+      this.clientTasks = res.data.tasks;
+    })
   }
 }
