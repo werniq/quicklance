@@ -15,7 +15,22 @@
     <button class="back-button" [routerLink]="'/home'">Back to Tasks</button>
   </div>
 
-  <div class="solution-submit">
+  <!-- Display submissions if userType is true (Client) -->
+  <div *ngIf="userType" class="submissions">
+    <h3>Submissions</h3>
+    <div *ngIf="submissions.length > 0; else noSubmissions">
+      <div *ngFor="let submission of submissions" class="submission-item">
+        <p><strong>Description:</strong> {{ submission.description }}</p>
+        <a [href]="submission.fileUrl" target="_blank">View File</a>
+      </div>
+    </div>
+    <ng-template #noSubmissions>
+      <p>No submissions yet.</p>
+    </ng-template>
+  </div>
+
+  <!-- Display submission form if userType is false (Freelancer) -->
+  <div *ngIf="!userType" class="solution-submit">
     <h3>Submit Your Solution</h3>
     <form (ngSubmit)="submitSolution()" #solutionForm="ngForm">
       <div class="form-group">

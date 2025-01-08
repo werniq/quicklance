@@ -3,6 +3,7 @@ import {ActivatedRoute, RouterLink} from '@angular/router';
 import axios from 'axios';
 import {NavbarComponent} from '../navbar/navbar.component';
 import {FormsModule} from '@angular/forms';
+import {NgForOf, NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-task-detailed',
@@ -10,7 +11,9 @@ import {FormsModule} from '@angular/forms';
   imports: [
     NavbarComponent,
     RouterLink,
-    FormsModule
+    FormsModule,
+    NgIf,
+    NgForOf
   ],
   templateUrl: './task-detailed.component.html',
   styleUrl: './task-detailed.component.css'
@@ -21,6 +24,8 @@ export class TaskDetailedComponent {
   private sub: any;
   data: any = {
   };
+  submissions: any = [];
+  userType: boolean = localStorage.getItem('userType')! == "client";
 
   constructor(private route: ActivatedRoute) {}
 
@@ -32,6 +37,10 @@ export class TaskDetailedComponent {
     if (input.files && input.files.length > 0) {
       this.selectedFile = input.files[0];
     }
+  }
+
+  getAllSubmissions() {
+
   }
 
   submitSolution(): void {
