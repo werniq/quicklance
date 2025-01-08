@@ -43,15 +43,17 @@ export class TaskDetailedComponent {
     const formData = new FormData();
     formData.append('description', this.solutionDescription);
     formData.append('file', this.selectedFile);
-    formData.append('userId', localStorage.getItem("userId")!.toString());
-    formData.append('taskId', this.id.toString());
 
     console.log('Submitting solution:', {
       description: this.solutionDescription,
       file: this.selectedFile,
     });
 
-    axios.post(`http://localhost:8080/api/v1/task/submission`, formData)
+    axios.post(`http://localhost:8080/api/v1/task/submission`, {
+      formData,
+      'userId': parseInt(localStorage.getItem('userId')),
+      'taskId': this.id,
+    })
       .then(res => {
         if (res.status == 200) {
           console.log(res)
