@@ -51,7 +51,7 @@ export class TaskDetailedComponent {
 
     axios.post(`http://localhost:8080/api/v1/task/submission`, {
       formData,
-      'userId': parseInt(localStorage.getItem('userId')),
+      'userId': parseInt(localStorage.getItem('userId')!),
       'taskId': this.id,
     })
       .then(res => {
