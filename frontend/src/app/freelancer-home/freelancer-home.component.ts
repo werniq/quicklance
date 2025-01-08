@@ -52,11 +52,16 @@ export class FreelancerHomeComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    // this.fetchTasks();
+    this.fetchTasks();
   }
 
   fetchTasks() {
-    axios.get("http://localhost:8080/api/v1/tasks")
+    axios.get("http://localhost:8080/api/v1/tasks", {
+      headers: {
+        "Authorization": "Bearer " + localStorage.getItem("userToken"),
+        "Content-Type": "application/json"
+      }
+    })
       .then((response) => {
         this.data = response.data;
       })

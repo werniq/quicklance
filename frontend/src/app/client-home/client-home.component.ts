@@ -27,7 +27,7 @@ export class ClientHomeComponent implements OnInit {
         "Authorization": "Bearer " + localStorage.getItem('userToken'),
       }
     }).then(res => {
-      this.clientTasks = res.data.tasks;
+      this.clientTasks = res.data;
     })
   }
 }
