@@ -43,7 +43,7 @@ export class TaskDetailedComponent {
     const formData = new FormData();
     formData.append('description', this.solutionDescription);
     formData.append('file', this.selectedFile);
-    formData.append('userId', localStorage.getItem("userId"));
+    formData.append('userId', localStorage.getItem("userId")!.toString());
     formData.append('taskId', this.id.toString());
 
     console.log('Submitting solution:', {
