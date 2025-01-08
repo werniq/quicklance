@@ -17,7 +17,7 @@ export class NavbarComponent implements OnInit {
   menuItems: { label: string; route: string }[] = [];
 
   ngOnInit() {
-    this.isUserAuthenticated = localStorage.getItem('userToken') != '';
+    this.isUserAuthenticated = localStorage.getItem('userToken') != null;
     this.setMenuItems();
   }
 

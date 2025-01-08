@@ -25,6 +25,7 @@ export class TaskCreationFormComponent {
     axios.post(this.taskCreationEndpoint, JSON.stringify(this.task), {
       headers: {
         "Authorization": "Bearer " + localStorage.getItem('userToken'),
+        "Content-Type": "application/json",
       }
     })
       .then(response => {
