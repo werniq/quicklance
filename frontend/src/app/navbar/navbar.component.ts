@@ -30,7 +30,7 @@ export class NavbarComponent implements OnInit {
   logout() {
     localStorage.removeItem('userId');
     localStorage.removeItem('userType');
-    localStorage.removeItem('userToken');
+    localStorage.removeItem('jwtToken');
     window.location.reload();
   }
 
