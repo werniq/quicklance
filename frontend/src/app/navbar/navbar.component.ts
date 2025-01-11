@@ -25,6 +25,7 @@ export class NavbarComponent implements OnInit {
     localStorage.removeItem('userId');
     localStorage.removeItem('userType');
     localStorage.removeItem('userToken');
+    window.location.reload();
   }
 
   setMenuItems() {
