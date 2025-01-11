@@ -18,6 +18,13 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     this.isUserAuthenticated = localStorage.getItem('jwtToken') != null;
+    axios.get('http://localhost:8080/api/v1/user/'+this.userId.toString())
+      .then(response => {
+        console.log(response)
+        if (response.status == 200) {
+          this.userBalance = response.data.user.credits;
+        }
+      })
     this.setMenuItems();
   }
 
