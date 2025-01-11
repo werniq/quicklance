@@ -22,7 +22,7 @@ export class NavbarComponent implements OnInit {
       .then(response => {
         console.log(response)
         if (response.status == 200) {
-          this.userBalance = response.data.user.credits;
+          this.userBalance = response.data.credits;
         }
       })
     this.setMenuItems();
