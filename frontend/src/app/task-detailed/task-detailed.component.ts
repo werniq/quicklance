@@ -35,7 +35,7 @@ export class TaskDetailedComponent {
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
-      this.selectedFile = input.files[0];
+      this.selectedFile = input?.files[0];
     }
   }
 
@@ -49,35 +49,41 @@ export class TaskDetailedComponent {
       return;
     }
 
-    const formData = new FormData();
-    formData.append('description', this.solutionDescription);
-    formData.append('file', this.selectedFile);
-
     console.log('Submitting solution:', {
       description: this.solutionDescription,
       file: this.selectedFile,
     });
 
-    axios.post(`http://localhost:8080/api/v1/task/submission`, {
-      formData,
+    axios.post('http://localhost:8080/api/v1/task/submission', {
+      'solution': this.selectedFile,
       'userId': parseInt(localStorage.getItem('userId')!),
       'taskId': this.id,
+    }, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
+        'Content-Type': 'application/json',
+      },
     })
       .then(res => {
-        if (res.status == 200) {
-          console.log(res)
+        console.log(res);
+        if (res.status === 200) {
+          alert('Solution submitted successfully!');
         } else {
-          alert("Something went wrong")
+          alert('Something went wrong');
         }
       })
+      .catch(e => {
+        console.error('Error submitting solution:', e);
+      });
 
     this.solutionDescription = '';
     this.selectedFile = null;
   }
 
+
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      this.id = +params['id'];
+      this.id = parseInt(params['id']);
     })
 
     axios.get("http://localhost:8080/api/v1/tasks/" + this.id.toString())
