@@ -24,7 +24,7 @@ export class ClientHomeComponent implements OnInit {
   fetchClientTasks(): void {
     axios.get(this.newsFetchingURL, {
       headers: {
-        "Authorization": "Bearer " + localStorage.getItem('userToken'),
+        "Authorization": "Bearer " + localStorage.getItem('jwtToken'),
       }
     }).then(res => {
       this.clientTasks = res.data;

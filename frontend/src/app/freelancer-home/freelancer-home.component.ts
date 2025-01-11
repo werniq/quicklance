@@ -22,7 +22,7 @@ export class FreelancerHomeComponent implements OnInit {
   fetchTasks() {
     axios.get("http://localhost:8080/api/v1/tasks", {
       headers: {
-        "Authorization": "Bearer " + localStorage.getItem("userToken"),
+        "Authorization": "Bearer " + localStorage.getItem("jwtToken"),
         "Content-Type": "application/json"
       }
     })
