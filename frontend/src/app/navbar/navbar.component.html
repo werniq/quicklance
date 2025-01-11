@@ -13,4 +13,5 @@
 
   <a class="auth-button" *ngIf="isUserAuthenticated" (click)="logout()">Logout</a>
   <a class="auth-button" *ngIf="!isUserAuthenticated" [routerLink]="'/register'">Register</a>
+  <a class="auth-button" *ngIf="!isUserAuthenticated" [routerLink]="'/login'">Login</a>
 </nav>
