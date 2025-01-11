@@ -1,1 +1,24 @@
-<p>user-profile works!</p>
+<div *ngIf="user; else loading">
+  <h1>User Profile</h1>
+  <p><strong>First Name:</strong> {{ user.firstname }}</p>
+  <p><strong>Last Name:</strong> {{ user.lastname }}</p>
+  <p><strong>Type:</strong> {{ user.type }}</p>
+  <p><strong>Credits:</strong> {{ user.credits }}</p>
+
+  <div class="admin-section">
+    <h2>Update Your Balance</h2>
+    <label for="credits">Update Credits:</label>
+    <input
+      id="credits"
+      type="number"
+      [(ngModel)]="creditsToUpdate"
+      placeholder="Enter new credit value"
+    />
+    <p class="success-message">{{ successfulMessage }}</p>
+    <button (click)="updateUserCredits()">Update Credits</button>
+  </div>
+</div>
+
+<ng-template #loading>
+  <p>Loading user data...</p>
+</ng-template>
