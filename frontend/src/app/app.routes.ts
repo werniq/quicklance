@@ -7,6 +7,7 @@ import {UserProfileComponent} from './user-profile/user-profile.component';
 import {UserCreationFormComponent} from './user-creation-form/user-creation-form.component';
 import {TaskCreationFormComponent} from './task-creation-form/task-creation-form.component';
 import {HomeComponent} from './home/home.component';
+import {LoginComponent} from './login/login.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent},
@@ -14,6 +15,7 @@ export const routes: Routes = [
   { path: 'tasks/:id', component: TaskDetailedComponent},
   { path: 'users/:id', component: UserProfileComponent},
   { path: 'register', component: UserCreationFormComponent},
+  { path: 'login', component: LoginComponent},
   { path: 'create-task', component: TaskCreationFormComponent},
   { path: '', redirectTo: 'home', pathMatch: 'full'}
 ];
