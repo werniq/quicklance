@@ -18,6 +18,7 @@ export class UserProfileComponent implements OnInit {
   isAdmin: boolean = false;
   creditsToUpdate: number = 0;
   successfulMessage: string = "";
+  errorMessage: string = "";
 
   ngOnInit(): void {
     this.getUserData();
@@ -49,6 +50,10 @@ export class UserProfileComponent implements OnInit {
   updateUserCredits() {
     if (!this.user) return;
 
+    if (this.user.type.toLowerCase() == "freelancer") {
+      this.errorMessage = "Freelancers are not allowed to perform this operation";
+      return;
+    }
     axios
       .post('http://localhost:8080/api/v1/user/credits', {
         userId: this.user.id,
