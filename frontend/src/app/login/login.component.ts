@@ -33,6 +33,7 @@ export class LoginComponent {
           localStorage.setItem('jwtToken', response.data.jwtToken);
           localStorage.setItem('userId', response.data.userId);
           localStorage.setItem('userType', response.data.userType.toLowerCase());
+          window.location.reload();
         } else {
           this.errorMessage = 'Unexpected response from the server: ' + response.data?.message;
         }
