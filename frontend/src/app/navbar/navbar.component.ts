@@ -33,7 +33,6 @@ export class NavbarComponent implements OnInit {
     if (userType === 'client') {
       this.menuItems = [
         { label: 'Home', route: '/home'},
-        { label: 'My Tasks', route: '/my-tasks' },
         { label: 'Create task', route: '/create-task' },
         { label: 'Profile', route: '/users/' + localStorage.getItem('userId') },
       ];
