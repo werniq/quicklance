@@ -38,8 +38,7 @@ export class NavbarComponent implements OnInit {
       ];
     } else {
       this.menuItems = [
-        { label: 'Home', route: '/home'},
-        { label: 'Browse Tasks', route: '/my-tasks' },
+        { label: 'Browse Tasks', route: '/home' },
         { label: 'Profile', route: '/users/' + localStorage.getItem('userId') }
       ];
     }
