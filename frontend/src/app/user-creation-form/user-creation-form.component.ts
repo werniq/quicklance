@@ -32,7 +32,7 @@ export class UserCreationFormComponent {
       .then(response => {
       if (response.status === 200) {
         this.successMessage = 'User created successfully!';
-        localStorage.setItem('userToken', response.data.jwtToken);
+        localStorage.setItem('jwtToken', response.data.jwtToken);
         localStorage.setItem('userId', response.data.userId);
         localStorage.setItem('userType', this.user.userType.toLowerCase());
         this.resetForm();
