@@ -42,6 +42,7 @@ public class Mapper {
                 .map(submission ->
                         new Submission(
                                 submission.getSolution(),
+                                submission.getDescription(),
                                 submission.getId(),
                                 submission.getTask().getId())
                 )

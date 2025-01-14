@@ -33,7 +33,7 @@ public class SubmissionService {
         UserEntity user = userRepository.findById(submission.userId())
                 .orElseThrow(() -> new IllegalArgumentException("User does not exist"));
         TaskEntity task = getTaskEntity(submission.taskId());
-        var submissionEntity = new SubmissionEntity(submission.solution(), user, task);
+        var submissionEntity = new SubmissionEntity(submission.solution(), submission.description(), user, task);
         submissionRepository.save(submissionEntity);
     }
 
