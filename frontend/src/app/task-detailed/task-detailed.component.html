@@ -21,7 +21,8 @@
     <div *ngIf="submissions.length > 0; else noSubmissions">
       <div *ngFor="let submission of submissions" class="submission-item">
         <p><strong>Description:</strong> {{ submission.description }}</p>
-        <a [href]="submission.fileUrl" target="_blank">View File</a>
+        <button (click)="downloadSolution(submission.solution, 'solution')">Download Solution</button>
+        <button *ngIf="isImage(submission.solution)" (click)="viewImage(submission.solution)">View Image</button>
       </div>
     </div>
     <ng-template #noSubmissions>
