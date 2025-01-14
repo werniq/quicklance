@@ -49,37 +49,47 @@ export class TaskDetailedComponent {
       return;
     }
 
-    console.log('Submitting solution:', {
-      description: this.solutionDescription,
-      file: this.selectedFile,
-    });
+    const reader = new FileReader();
 
-    axios.post('http://localhost:8080/api/v1/task/submission', {
-      'solution': this.selectedFile,
-      'userId': parseInt(localStorage.getItem('userId')!),
-      'taskId': this.id,
-    }, {
-      headers: {
-        'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
-        'Content-Type': 'application/json',
-      },
-    })
-      .then(res => {
-        console.log(res);
-        if (res.status === 200) {
-          alert('Solution submitted successfully!');
-        } else {
-          alert('Something went wrong');
-        }
+    reader.onload = () => {
+      const arrayBuffer = reader.result as ArrayBuffer;
+      const byteArray = new Uint8Array(arrayBuffer);
+
+      const payload = {
+        solution: Array.from(byteArray),
+        userId: parseInt(localStorage.getItem('userId')!, 10),
+        taskId: this.id,
+        description: this.solutionDescription,
+      };
+
+      axios.post('http://localhost:8080/api/v1/task/submission', payload, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('jwtToken'),
+          'Content-Type': 'application/json',
+        },
       })
-      .catch(e => {
-        console.error('Error submitting solution:', e);
-      });
+        .then(res => {
+          console.log(res);
+          if (res.status === 200) {
+            alert('Solution submitted successfully!');
+          } else {
+            alert('Something went wrong');
+          }
+        })
+        .catch(e => {
+          console.error('Error submitting solution:', e);
+        });
 
-    this.solutionDescription = '';
-    this.selectedFile = null;
+      this.solutionDescription = '';
+      this.selectedFile = null;
+    };
+
+    reader.onerror = () => {
+      console.error('Failed to read file');
+    };
+
+    reader.readAsArrayBuffer(this.selectedFile);
   }
-
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
