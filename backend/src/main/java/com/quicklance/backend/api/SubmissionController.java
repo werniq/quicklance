@@ -6,6 +6,8 @@ import com.quicklance.backend.service.SubmissionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1")
 public class SubmissionController {
@@ -23,6 +25,16 @@ public class SubmissionController {
             return ResponseEntity.ok(new MessageModel("Solution was submitted"));
         } catch (Exception e) {
             return ResponseEntity.status(500).build();
+        }
+    }
+
+    @GetMapping("/task/{taskId}/submissions")
+    public ResponseEntity<List<Submission>> getTaskSubmissions(@PathVariable Long taskId) {
+        try {
+            List<Submission> taskSubmissions = submissionService.getTaskSubmissions(taskId);
+            return ResponseEntity.ok(taskSubmissions);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
         }
     }
 }
