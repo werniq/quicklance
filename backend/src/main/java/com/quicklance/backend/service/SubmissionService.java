@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static com.quicklance.backend.mapper.Mapper.mapSubmission;
 import static com.quicklance.backend.mapper.Mapper.mapSubmissions;
 
 @Service
@@ -43,6 +44,12 @@ public class SubmissionService {
         TaskEntity task = getTaskEntity(taskId);
         List<SubmissionEntity> taskSubmissions = submissionRepository.findAllByTask(task);
         return mapSubmissions(taskSubmissions);
+    }
+
+    public Submission getSubmissionById(Long submissionId) {
+        SubmissionEntity submissionEntity = submissionRepository.findById(submissionId)
+                .orElseThrow(() -> new IllegalArgumentException("Submission does not exist"));
+        return mapSubmission(submissionEntity);
     }
 
     @Transactional

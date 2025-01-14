@@ -46,6 +46,17 @@ public class SubmissionController {
         }
     }
 
+    @GetMapping("/submission/{submissionId}")
+    public ResponseEntity<Submission> getSubmission(@PathVariable Long submissionId) {
+        try {
+            Submission submission = submissionService.getSubmissionById(submissionId);
+            return ResponseEntity.ok(submission);
+        } catch (Exception e) {
+            LOGGER.error("Failed to get submission with id {}", submissionId, e);
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
     @PostMapping("/task/{taskId}/submission/{submissionId}")
     public ResponseEntity<MessageModel> acceptSubmission(@PathVariable Long taskId, @PathVariable Long submissionId) {
         try {

@@ -39,13 +39,15 @@ public class Mapper {
     public static List<Submission> mapSubmissions(List<SubmissionEntity> submissionEntities) {
         return submissionEntities
                 .stream()
-                .map(submission ->
-                        new Submission(
-                                submission.getSolution(),
-                                submission.getDescription(),
-                                submission.getId(),
-                                submission.getTask().getId())
-                )
+                .map(Mapper::mapSubmission)
                 .toList();
+    }
+
+    public static Submission mapSubmission(SubmissionEntity submission) {
+        return new Submission(
+                submission.getSolution(),
+                submission.getDescription(),
+                submission.getId(),
+                submission.getTask().getId());
     }
 }
