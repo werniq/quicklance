@@ -1,3 +1,3 @@
 package com.quicklance.backend.dto;
 
-public record TaskRequest(String title, String description, Integer credits) {}
+public record TaskRequest(String title, String description, Long credits) {}
