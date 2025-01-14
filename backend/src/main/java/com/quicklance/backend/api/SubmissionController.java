@@ -57,6 +57,7 @@ public class SubmissionController {
         }
     }
 
+    @PreAuthorize("hasAuthority('ROLE_CLIENT')")
     @PostMapping("/task/{taskId}/submission/{submissionId}")
     public ResponseEntity<MessageModel> acceptSubmission(@PathVariable Long taskId, @PathVariable Long submissionId) {
         try {
