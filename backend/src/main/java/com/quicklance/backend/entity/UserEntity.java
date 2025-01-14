@@ -29,7 +29,7 @@ public class UserEntity extends BaseEntity implements UserDetails {
     private final UserType type;
 
     @Column(name = "credits", nullable = false)
-    private final Long credits;
+    private Long credits;
 
     public UserEntity(String firstname, String lastname, String email, String password, UserType type, Long credits) {
         this.firstname = firstname;
@@ -63,6 +63,10 @@ public class UserEntity extends BaseEntity implements UserDetails {
 
     public Long getCredits() {
         return credits;
+    }
+
+    public void setCredits(Long credits) {
+        this.credits = credits;
     }
 
     @Override

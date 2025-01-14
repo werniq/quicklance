@@ -1,7 +1,9 @@
 package com.quicklance.backend.mapper;
 
+import com.quicklance.backend.dto.Submission;
 import com.quicklance.backend.dto.Task;
 import com.quicklance.backend.dto.User;
+import com.quicklance.backend.entity.SubmissionEntity;
 import com.quicklance.backend.entity.TaskEntity;
 import com.quicklance.backend.entity.UserEntity;
 
@@ -32,5 +34,20 @@ public class Mapper {
                 userEntity.getLastname(),
                 userEntity.getType(),
                 userEntity.getCredits());
+    }
+
+    public static List<Submission> mapSubmissions(List<SubmissionEntity> submissionEntities) {
+        return submissionEntities
+                .stream()
+                .map(Mapper::mapSubmission)
+                .toList();
+    }
+
+    public static Submission mapSubmission(SubmissionEntity submission) {
+        return new Submission(
+                submission.getSolution(),
+                submission.getDescription(),
+                submission.getId(),
+                submission.getTask().getId());
     }
 }

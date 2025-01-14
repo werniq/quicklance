@@ -17,14 +17,19 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User getUserDetails(long userId) {
-        UserEntity userEntity = userRepository.findById(userId)
-                .orElseThrow(() -> new UserDoesNotExist("User with id " + userId + " does not exist"));
+    public User getUserDetails(Long userId) {
+        UserEntity userEntity = getUserEntity(userId);
         return Mapper.mapUser(userEntity);
     }
 
     @Transactional
     public void updateUserCredits(Long userId, Long credits) {
-        userRepository.updateUserCreditsById(userId, credits);
+        UserEntity user = getUserEntity(userId);
+        user.setCredits(user.getCredits() + credits);
+    }
+
+    private UserEntity getUserEntity(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new UserDoesNotExist("User with id " + userId + " does not exist"));
     }
 }

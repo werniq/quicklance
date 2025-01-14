@@ -16,7 +16,7 @@ public class TaskEntity extends BaseEntity {
     private final String description;
 
     @Column(name = "credits", nullable = false)
-    private final Integer credits;
+    private final Long credits;
 
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
@@ -34,7 +34,7 @@ public class TaskEntity extends BaseEntity {
                 LocalDate.now());
     }
 
-    public TaskEntity(String title, String description, Integer credits, UserEntity author, LocalDate createdAt) {
+    public TaskEntity(String title, String description, Long credits, UserEntity author, LocalDate createdAt) {
         this.title = title;
         this.description = description;
         this.credits = credits;
@@ -54,7 +54,7 @@ public class TaskEntity extends BaseEntity {
         return description;
     }
 
-    public Integer getCredits() {
+    public Long getCredits() {
         return credits;
     }
 
