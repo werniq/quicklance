@@ -45,6 +45,7 @@ public class Mapper {
 
     public static Submission mapSubmission(SubmissionEntity submission) {
         return new Submission(
+                submission.getId(),
                 submission.getSolution(),
                 submission.getDescription(),
                 submission.getId(),
