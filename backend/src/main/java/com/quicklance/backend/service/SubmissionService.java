@@ -29,6 +29,7 @@ public class SubmissionService {
         this.taskRepository = taskRepository;
     }
 
+    @Transactional
     public void addSubmission(Submission submission) {
         UserEntity user = userRepository.findById(submission.userId())
                 .orElseThrow(() -> new IllegalArgumentException("User does not exist"));
@@ -42,6 +43,12 @@ public class SubmissionService {
         TaskEntity task = getTaskEntity(taskId);
         List<SubmissionEntity> taskSubmissions = submissionRepository.findAllByTask(task);
         return mapSubmissions(taskSubmissions);
+    }
+
+    @Transactional
+    public void acceptSubmission(Long taskId, Long submissionId) {
+        // TaskEntity task = getTaskEntity(taskId);
+        // Implement accepting submission
     }
 
     private TaskEntity getTaskEntity(Long taskId) {

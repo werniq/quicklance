@@ -45,4 +45,15 @@ public class SubmissionController {
             return ResponseEntity.badRequest().build();
         }
     }
+
+    @PostMapping("/task/{taskId}/submission/{submissionId}")
+    public ResponseEntity<MessageModel> acceptSubmission(@PathVariable Long taskId, @PathVariable Long submissionId) {
+        try {
+            submissionService.acceptSubmission(taskId, submissionId);
+            return ResponseEntity.ok(new MessageModel("Solution was successfully accepted"));
+        } catch (Exception e) {
+            LOGGER.error("Failed to accept submission {} for task {}", submissionId, taskId, e);
+            return ResponseEntity.badRequest().body(new MessageModel(e.getMessage()));
+        }
+    }
 }
