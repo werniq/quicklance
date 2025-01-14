@@ -36,6 +36,7 @@ export class UserCreationFormComponent {
         localStorage.setItem('userId', response.data.userId);
         localStorage.setItem('userType', this.user.userType.toLowerCase());
         this.resetForm();
+        window.location.reload();
       } else {
         this.errorMessage = 'Unexpected response from the server: ' + response.data?.message;
       }
