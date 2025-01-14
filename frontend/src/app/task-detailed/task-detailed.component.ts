@@ -46,9 +46,8 @@ export class TaskDetailedComponent implements OnInit {
         },
       })
       .then(response => {
-        console.log(response)
-        this.submissions = response.data; // Populate submissions
-        console.log(this.submissions)
+        this.submissions = response.data;
+        // Populate submissions
       })
       .catch(error => {
         console.error('Error fetching submissions:', error);
@@ -115,7 +114,10 @@ export class TaskDetailedComponent implements OnInit {
           console.log(res);
           if (res.status === 200) {
             alert('Solution submitted successfully!');
-            this.getAllSubmissions(); // Refresh submissions after successful submission
+            for (let i = 0; i < this.submissions.length; i++) {
+              this.submissions[i].id = i;
+            }
+            this.getAllSubmissions();
           } else {
             alert('Something went wrong');
           }
@@ -150,4 +152,37 @@ export class TaskDetailedComponent implements OnInit {
         console.error('Error while retrieving task data:', error);
       });
   }
+
+  chooseSolution(submissionId: number): void {
+    const token = localStorage.getItem('jwtToken');
+
+    if (!token) {
+      console.error('Authorization token not found.');
+      return;
+    }
+
+    axios
+      .post(
+        `http://localhost:8080/api/v1/task/${this.id}/submission/${submissionId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then(response => {
+        if (response.status === 200) {
+          alert('Solution chosen successfully!');
+          console.log('Response:', response.data);
+        } else {
+          alert('Something went wrong while choosing the solution.');
+        }
+      })
+      .catch(error => {
+        console.error('Error choosing solution:', error);
+        alert('Failed to choose the solution. Please try again.');
+      });
+  }
+
 }

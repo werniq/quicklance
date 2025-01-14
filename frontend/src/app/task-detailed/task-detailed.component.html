@@ -23,6 +23,7 @@
         <p><strong>Description:</strong> {{ submission.description }}</p>
         <button (click)="downloadSolution(submission.solution, 'solution')">Download Solution</button>
         <button *ngIf="isImage(submission.solution)" (click)="viewImage(submission.solution)">View Image</button>
+        <button (click)="chooseSolution(submission.id)">Choose it</button>
       </div>
     </div>
     <ng-template #noSubmissions>
