@@ -21,13 +21,16 @@ public class SubmissionService {
     private final SubmissionRepository submissionRepository;
     private final UserRepository userRepository;
     private final TaskRepository taskRepository;
+    private final UserService userService;
 
     public SubmissionService(SubmissionRepository submissionRepository,
                              UserRepository userRepository,
-                             TaskRepository taskRepository) {
+                             TaskRepository taskRepository,
+                             UserService userService) {
         this.submissionRepository = submissionRepository;
         this.userRepository = userRepository;
         this.taskRepository = taskRepository;
+        this.userService = userService;
     }
 
     @Transactional
@@ -58,8 +61,7 @@ public class SubmissionService {
         if (!submission.getTask().getId().equals(task.getId())) {
             throw new IllegalArgumentException("Task " + taskId + " doesn't have submission " + submissionId);
         }
-        UserEntity submitter = submission.getUser();
-        submitter.setCredits(submitter.getCredits() + task.getCredits());
+        userService.updateUserCredits(submission.getUser().getId(), task.getCredits());
         closeSubmissionsAndTask(task);
     }
 

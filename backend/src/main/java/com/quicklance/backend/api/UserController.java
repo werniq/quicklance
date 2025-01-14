@@ -27,7 +27,7 @@ public class UserController {
     }
 
     @PostMapping("/user/credits")
-    public ResponseEntity<MessageModel> updateUserCredits(@RequestBody CreditsRequest creditsRequest) {
+    public ResponseEntity<MessageModel> topUpUserCredits(@RequestBody CreditsRequest creditsRequest) {
         try {
             Long userId = creditsRequest.userId();
             userService.updateUserCredits(userId, creditsRequest.credits());
