@@ -47,19 +47,36 @@ public class SubmissionService {
     }
 
     public Submission getSubmissionById(Long submissionId) {
-        SubmissionEntity submissionEntity = submissionRepository.findById(submissionId)
-                .orElseThrow(() -> new IllegalArgumentException("Submission does not exist"));
+        SubmissionEntity submissionEntity = getSubmissionEntity(submissionId);
         return mapSubmission(submissionEntity);
     }
 
     @Transactional
     public void acceptSubmission(Long taskId, Long submissionId) {
-        // TaskEntity task = getTaskEntity(taskId);
-        // Implement accepting submission
+        TaskEntity task = getTaskEntity(taskId);
+        SubmissionEntity submission = getSubmissionEntity(submissionId);
+        if (!submission.getTask().getId().equals(task.getId())) {
+            throw new IllegalArgumentException("Task " + taskId + " doesn't have submission " + submissionId);
+        }
+        UserEntity submitter = submission.getUser();
+        submitter.setCredits(submitter.getCredits() + task.getCredits());
+        closeSubmissionsAndTask(task);
+    }
+
+    @Transactional
+    protected void closeSubmissionsAndTask(TaskEntity task) {
+        List<SubmissionEntity> taskSubmissions = submissionRepository.findAllByTask(task);
+        submissionRepository.deleteAll(taskSubmissions);
+        taskRepository.deleteById(task.getId());
     }
 
     private TaskEntity getTaskEntity(Long taskId) {
         return taskRepository.findById(taskId)
                 .orElseThrow(() -> new IllegalArgumentException("Task does not exist"));
+    }
+
+    private SubmissionEntity getSubmissionEntity(Long submissionId) {
+        return submissionRepository.findById(submissionId)
+                .orElseThrow(() -> new IllegalArgumentException("Submission does not exist"));
     }
 }
