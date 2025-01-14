@@ -5,7 +5,7 @@
   <p><strong>Type:</strong> {{ user.type }}</p>
   <p><strong>Credits:</strong> {{ user.credits }}</p>
 
-  <div class="admin-section">
+  <div *ngIf="isAdmin" class="admin-section">
     <h2>Update Your Balance</h2>
     <label for="credits">Update Credits:</label>
     <input

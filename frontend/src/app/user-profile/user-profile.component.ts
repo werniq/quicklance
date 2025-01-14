@@ -14,7 +14,13 @@ import {NgIf} from '@angular/common';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  user: { id: number; firstname: string; lastname: string; type: string; credits: number } | null = null;
+  user: { id: number; firstname: string; lastname: string; type: string; credits: number }  = {
+    id: 0,
+    firstname: "",
+    lastname: "",
+    type: "",
+    credits: 0,
+  };
   isAdmin: boolean = false;
   creditsToUpdate: number = 0;
   successfulMessage: string = "";
@@ -22,29 +28,33 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUserData();
-    this.checkIfAdmin();
   }
 
-  getUserData() {
+  async getUserData() {
     const userId = localStorage.getItem('userId');
     if (!userId) {
       console.error('User ID not found in localStorage');
       return;
     }
 
-    axios
+    await axios
       .get(`http://localhost:8080/api/v1/user/${userId}`)
       .then(response => {
-        this.user = response.data;
+        this.user.id = response.data.id;
+        this.user.firstname = response.data.firstname;
+        this.user.lastname = response.data.lastname;
+        this.user.type = response.data.type;
+        this.user.credits = response.data.credits;
       })
       .catch(error => {
         console.error('Error fetching user data:', error);
       });
+    this.checkIfAdmin();
   }
 
   checkIfAdmin() {
     const userId = localStorage.getItem('userId');
-    this.isAdmin =  userId == this.user?.id.toString();
+    this.isAdmin =  userId?.toString() == this.user?.id.toString();
   }
 
   updateUserCredits() {
