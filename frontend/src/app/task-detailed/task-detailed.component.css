@@ -87,3 +87,90 @@ button {
 .back-button:hover {
   background-color: #0056b3;
 }
+
+.submissions {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.submissions h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.submission-item {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #dcdcdc;
+  border-radius: 5px;
+  background-color: #fff;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.submission-item:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.submission-item p {
+  margin: 0 0 10px;
+  font-size: 1rem;
+  color: #555;
+}
+
+.submission-item button {
+  margin-right: 10px;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submission-item button:nth-child(1) {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.submission-item button:nth-child(1):hover {
+  background-color: #0056b3;
+}
+
+.submission-item button:nth-child(2) {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.submission-item button:nth-child(2):hover {
+  background-color: #218838;
+}
+
+.submission-item button:nth-child(3) {
+  background-color: #3f51b5;
+  color: #fff;
+}
+
+.submission-item button:nth-child(3):hover {
+  background-color: #2f3c87;
+}
+
+.submissions p {
+  font-size: 1rem;
+  color: #888;
+  text-align: center;
+}
+
+.choose-button {
+  transition: .5s ease-in-out;
+}
+
+.choose-button:hover {
+  background-color: crimson;
+  color: white;
+}
