@@ -22,6 +22,11 @@ export class TaskCreationFormComponent {
   errorMessage: string | null = null;
 
   createTask() {
+    if (this.task.credits <= 0) {
+      this.errorMessage = "Please, specify correct amount of credits. It should be bigger than 0."
+      return;
+    }
+
     axios.post(this.taskCreationEndpoint, JSON.stringify(this.task), {
       headers: {
         "Authorization": "Bearer " + localStorage.getItem('jwtToken'),
