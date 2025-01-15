@@ -54,7 +54,7 @@ export class UserProfileComponent implements OnInit {
 
   checkIfAdmin() {
     const userId = localStorage.getItem('userId');
-    this.isAdmin =  userId?.toString() == this.user?.id.toString();
+    this.isAdmin =  userId?.toString() == this.user?.id.toString() && this.user?.type != "freelancer";
   }
 
   updateUserCredits() {
