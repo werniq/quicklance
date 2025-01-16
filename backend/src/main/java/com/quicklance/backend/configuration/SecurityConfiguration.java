@@ -28,8 +28,8 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(httpRequest -> httpRequest
                         .requestMatchers("/api/v1/login", "/api/v1/register")
                         .permitAll()
-                        .authenticated()
-                        .permitAll())
+                        .anyRequest()
+                        .authenticated())
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
