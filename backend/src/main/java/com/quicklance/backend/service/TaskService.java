@@ -11,6 +11,7 @@ import com.quicklance.backend.repository.TaskRepository;
 import com.quicklance.backend.repository.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,10 +20,12 @@ public class TaskService {
 
     private final TaskRepository taskRepository;
     private final UserRepository userRepository;
+    private final UserService userService;
 
-    public TaskService(TaskRepository taskRepository, UserRepository userRepository) {
+    public TaskService(TaskRepository taskRepository, UserRepository userRepository, UserService userService) {
         this.taskRepository = taskRepository;
         this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     public List<Task> getAllTasks() {
@@ -43,8 +46,14 @@ public class TaskService {
                 .orElseThrow(() -> new TaskDoesNotExist("Task with id " + taskId + " does not exist"));
     }
 
+    @Transactional
     public void createNewTask(TaskRequest taskRequest) {
         UserEntity userEntity = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        long taskCredits = taskRequest.credits();
+        if (userEntity.getCredits() < taskCredits) {
+            throw new IllegalArgumentException("User doesn't have enough credits");
+        }
+        userService.updateUserCredits(userEntity.getId(), -1 * taskRequest.credits());
         TaskEntity taskEntity = TaskEntity.from(taskRequest, userEntity);
         taskRepository.save(taskEntity);
     }
