@@ -13,7 +13,8 @@ import axios from "axios";
 export class UserCreationFormComponent {
   private userCreationEndpoint = "http://localhost:8080/api/v1/register";
   public user = {
-    name: '',
+    firstname: '',
+    lastname: '',
     email: '',
     password: '',
     userType: 'client'
@@ -25,28 +26,17 @@ export class UserCreationFormComponent {
 
   constructor() { }
 
-  updateUsername(username: string) {
-    this.user.name = username;
-  }
-
-  updateEmail(email: string) {
-    this.user.email = email;
-  }
-
-  updatePassword(password: string) {
-    this.user.password = password;
-  }
-
-  updateUserType(userType: string) {
-    this.user.userType = userType;
-  }
-
   registerUser() {
+    this.user.userType = this.user.userType.toUpperCase();
     axios.post(this.userCreationEndpoint, this.user)
       .then(response => {
       if (response.status === 200) {
-        this.successMessage = 'Task created successfully!';
+        this.successMessage = 'User created successfully!';
+        localStorage.setItem('jwtToken', response.data.jwtToken);
+        localStorage.setItem('userId', response.data.userId);
+        localStorage.setItem('userType', this.user.userType.toLowerCase());
         this.resetForm();
+        window.location.reload();
       } else {
         this.errorMessage = 'Unexpected response from the server: ' + response.data?.message;
       }
@@ -62,7 +52,8 @@ export class UserCreationFormComponent {
 
   resetForm() {
     this.user = {
-      name: '',
+      firstname: '',
+      lastname: '',
       email: '',
       password: '',
       userType: 'client'

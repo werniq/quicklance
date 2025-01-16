@@ -9,9 +9,52 @@
       </div>
       <div class="info-item">
         <span class="info-label">Created At:</span>
-        <span class="info-value">{{ data.created_at }}</span>
+        <span class="info-value">{{ data.createdAt }}</span>
       </div>
     </div>
-    <button class="back-button" routerLink="home">Back to Tasks</button>
+    <button class="back-button" [routerLink]="'/home'">Back to Tasks</button>
+  </div>
+
+  <!-- Display submissions if userType is true (Client) -->
+  <div *ngIf="userType" class="submissions">
+    <h3>Submissions</h3>
+    <div *ngIf="submissions.length > 0; else noSubmissions">
+      <div *ngFor="let submission of submissions" class="submission-item">
+        <p><strong>Description:</strong> {{ submission.description }}</p>
+        <button (click)="downloadSolution(submission.solution, 'solution')">Download Solution</button>
+        <button *ngIf="isImage(submission.solution)" (click)="viewImage(submission.solution)">View Image</button>
+        <button class="choose-button" (click)="chooseSolution(submission.id)">Choose it</button>
+      </div>
+    </div>
+    <ng-template #noSubmissions>
+      <p>No submissions yet.</p>
+    </ng-template>
+  </div>
+
+  <!-- Display submission form if userType is false (Freelancer) -->
+  <div *ngIf="!userType" class="solution-submit">
+    <h3>Submit Your Solution</h3>
+    <form (ngSubmit)="submitSolution()" #solutionForm="ngForm">
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea
+          id="description"
+          name="description"
+          [(ngModel)]="solutionDescription"
+          placeholder="Enter a brief description of your solution"
+          required
+        ></textarea>
+      </div>
+      <div class="form-group">
+        <label for="file">Upload File</label>
+        <input
+          type="file"
+          id="file"
+          (change)="onFileSelected($event)"
+          required
+        />
+      </div>
+      <button type="submit" [disabled]="!solutionForm.valid">Submit Solution</button>
+    </form>
   </div>
 </div>

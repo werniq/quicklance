@@ -11,61 +11,40 @@ import axios from "axios";
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  userId: number = 0;
+  userId: string = localStorage.getItem('userId') || '0';
   userBalance: number = 0;
   isUserAuthenticated: boolean = false;
   menuItems: { label: string; route: string }[] = [];
 
   ngOnInit() {
-    this.initializeUser();
+    this.isUserAuthenticated = localStorage.getItem('jwtToken') != null;
+    axios.get('http://localhost:8080/api/v1/user/'+this.userId.toString())
+      .then(response => {
+        if (response.status == 200) {
+          this.userBalance = response.data.credits;
+        }
+      })
     this.setMenuItems();
   }
 
-  checkUserAuthentication() {
-    const token = localStorage.getItem('token');
-    axios.get(`https://localhost:8080/is-user-authenticated?token=${token}`)
-      .then(response => {
-        this.isUserAuthenticated = response.data.authenticated;
-      })
-      .catch(error => {
-        console.error("Authentication check failed", error);
-        this.isUserAuthenticated = false;
-      });
-  }
-
-  retrieveUserInfoById(userId: number) {
-    axios.post(`https://localhost:8080/get-user-info?userId=${userId}`)
-      .then(response => {
-        this.userId = response.data.id;
-        this.userBalance = response.data.balance;
-      })
-      .catch(error => {
-        console.error("Failed to retrieve user information", error);
-      });
-  }
-
-  initializeUser() {
-    this.checkUserAuthentication();
-    if (this.isUserAuthenticated) {
-      this.retrieveUserInfoById(this.userId);
-    }
+  logout() {
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userType');
+    localStorage.removeItem('jwtToken');
+    window.location.reload();
   }
 
   setMenuItems() {
     const userType = localStorage.getItem('userType') || 'freelancer';
     if (userType === 'client') {
       this.menuItems = [
-        { label: 'Home', route: '/freelancer-home'},
-        { label: 'My Tasks', route: '/my-tasks' },
-        { label: 'Freelancers', route: '/freelancers' },
+        { label: 'Home', route: '/home'},
         { label: 'Create task', route: '/create-task' },
         { label: 'Profile', route: '/users/' + localStorage.getItem('userId') },
       ];
     } else {
       this.menuItems = [
-        { label: 'Home', route: '/freelancer-home'},
-        { label: 'Browse Tasks', route: '/tasks' },
-        { label: 'My Earnings', route: '/my-earnings' },
+        { label: 'Browse Tasks', route: '/home' },
         { label: 'Profile', route: '/users/' + localStorage.getItem('userId') }
       ];
     }
